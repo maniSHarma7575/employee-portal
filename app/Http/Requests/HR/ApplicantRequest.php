@@ -40,6 +40,7 @@ class ApplicantRequest extends FormRequest
                 'course' => 'nullable|string',
                 'linkedin' => 'nullable|url',
                 'form_data' => 'nullable|array',
+                'hr_university_id'=>'nullable|integer'
             ];
         }
 

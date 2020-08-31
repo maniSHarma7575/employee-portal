@@ -29,6 +29,7 @@ class Applicant extends Model
             'graduation_year' => isset($attr['graduation_year']) ? $attr['graduation_year'] : null,
             'course' => isset($attr['course']) ? $attr['course'] : null,
             'linkedin' => isset($attr['linkedin']) ? $attr['linkedin'] : null,
+            'hr_university_id'=>isset($attr['hr_university_id'])?$attr['hr_university_id']:null
         ]);
 
         $job = Job::where('title', $attr['job_title'])->first();

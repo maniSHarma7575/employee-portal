@@ -38,7 +38,7 @@ Vue.component('user-dashboard-read-books', require('./components/Dashboard/UserD
 Vue.component('user-dashboard-wishlist-books', require('./components/Dashboard/UserDashboardWishlistBooks.vue').default);
 Vue.component('user-dashboard-projects', require('./components/Dashboard/UserDashboardProjects.vue').default);
 Vue.component('user-dashboard-library', require('./components/Dashboard/UserDahboardLibrary.vue').default);
-
+Vue.component('hr-universities-reports', require('./components/HR/UniversityReportComponent.vue').default);
 if (document.getElementById('vueContainer')) {
 new Vue({
     el: '#vueContainer',
@@ -56,7 +56,7 @@ $(document).ready(() => {
             updateClientProjects(form, client_id);
         }
     }
-    if(document.getElementById("contact_email").value){
+    if(document.getElementById("contact_email") && document.getElementById("contact_email").value){
         $("#contact_form").removeClass("contact-form");
         $("#universities_contact_display_message").addClass("contact-form-message");
     } 
@@ -67,7 +67,11 @@ $(document).ready(() => {
     });
 });
 
-
+if (document.getElementById('university_reports')) {
+    const universityReport = new Vue({
+        el: '#university_reports',
+    });
+}
 if (document.getElementById('page_hr_applicant_edit')) {
     const applicantEdit = new Vue({
         el: '#page_hr_applicant_edit',

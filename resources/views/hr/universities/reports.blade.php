@@ -13,22 +13,27 @@
             @include('status', ['errors' => $errors->all()])
         </div>
         <div class="col-md-12">
-           
-        </div>
-        <div class="col-md-12">
-            <div class="container" >
-                <div class="d-flex justify-content-center">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="text-secondary text-center">Universities Reports coming soon</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
-    <div class="row">
-
+    <div class="card-deck" id="university_reports">
+  <div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Total Applications</h5>
+        <hr-universities-reports :applications="{{json_encode(['total']) }}" />
     </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Accepted Applications</h5>
+        <hr-universities-reports :applications="{{json_encode(['accepted']) }}" />
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Rejected Applications</h5>
+        <hr-universities-reports :applications="{{json_encode(['rejected']) }}"/>
+    </div>
+  </div>
+</div>
 </div>
 @endsection
