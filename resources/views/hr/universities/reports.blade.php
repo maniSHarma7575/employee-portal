@@ -19,19 +19,19 @@
   <div class="card">
     <div class="card-body">
         <h5 class="card-title">Total Applications</h5>
-        <hr-universities-reports :applications="{{json_encode(['total']) }}" />
+        <hr-universities-reports :applications="{{json_encode($applications['total']) }}" />
     </div>
   </div>
   <div class="card">
     <div class="card-body">
-        <h5 class="card-title">Accepted Applications</h5>
-        <hr-universities-reports :applications="{{json_encode(['accepted']) }}" />
+        <h5 class="card-title">Approved Applications</h5>
+        <hr-universities-reports :applications="{{json_encode($applications['approved']) }}" />
     </div>
   </div>
   <div class="card">
     <div class="card-body">
         <h5 class="card-title">Rejected Applications</h5>
-        <hr-universities-reports :applications="{{json_encode(['rejected']) }}"/>
+        <hr-universities-reports :applications="{{json_encode($applications['rejected']) }}"/>
     </div>
   </div>
 </div>

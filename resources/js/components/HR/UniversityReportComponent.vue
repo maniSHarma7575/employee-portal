@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import PieChart from './LineChart.js'
+  import PieChart from './UniversityReport.js'
 
   export default {
     props: ['applications'],
@@ -25,22 +25,12 @@
     methods: {
       fillData () {
         this.datacollection = {
-          labels: ["Kec", "THDC", "Birla", "CU",],
+          labels: this.applications.labels,
           datasets: [{
               borderWidth: 1,
-              borderColor: [
-              '#0275d8',
-              '#5cb85c',
-              '#5bc0de',
-              '#f0ad4e'            
-              ],
-              backgroundColor: [
-              '#0275d8',
-              '#5cb85c',
-              '#5bc0de',
-              '#f0ad4e',                
-              ],
-              data: [1000,	500,	1500,	1000]
+              borderColor: this.applications.backgroundColor,
+              backgroundColor: this.applications.backgroundColor,
+              data: this.applications.data
             }]
         }
         this.options={
