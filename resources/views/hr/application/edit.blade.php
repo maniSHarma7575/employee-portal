@@ -55,8 +55,8 @@
                             <div>{{ $applicant->email }}</div>
                         </div>
                         <div class="form-group col-md-5">
-                            <b>College</b>
-                            <div>{{ $applicant->college ?? '-' }}</div>
+                            <b>University</b>
+                            <div><a href="{{ route('universities.edit',$applicant->university) }}">{{ $applicant->university->name}}</a></div>
                         </div>
                         <div class="form-group offset-md-1 col-md-5">
                             <b>Course</b>

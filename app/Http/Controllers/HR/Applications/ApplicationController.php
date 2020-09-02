@@ -8,6 +8,7 @@ use App\Models\Setting;
 use App\Helpers\FileHelper;
 use App\Helpers\ContentHelper;
 use App\Models\HR\Application;
+use App\Models\HR\University;
 use App\Models\HR\ApplicationMeta;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -37,6 +38,7 @@ abstract class ApplicationController extends Controller
             'job-type' => $this->getApplicationType(),
             'job' => request()->get('hr_job_id'),
             'name' => request()->get('search'),
+            'university'=>request()->get('hr_university_id')
         ];
         $applications = Application::with(['applicant', 'job'])
             ->applyFilter($filters)
@@ -56,6 +58,7 @@ abstract class ApplicationController extends Controller
                 ->get()
                 ->count();
         }
+        $attr['universities']=University::all('name', 'id');
         return view('hr.application.index')->with($attr);
     }
 

@@ -5,6 +5,7 @@ namespace App\Models\HR;
 use App\Events\HR\ApplicationCreated;
 use App\Helpers\ContentHelper;
 use App\Models\HR\Evaluation\ApplicationEvaluation;
+use App\Models\HR\University;
 use Modules\User\Entities\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -82,6 +83,9 @@ class Application extends Model
                 case 'name':
                     $query->filterByName($value);
                     break;
+                case 'university':
+                    $query->filterByUniversity($value);
+                    break;
             }
         }
 
@@ -152,6 +156,14 @@ class Application extends Model
             ($search) ? $query->where('name', 'LIKE', "%$search%") : '';
         });
 
+        return $query;
+    }
+
+    public function scopeFilterByUniversity($query, $university)
+    {
+        $query->whereHas('applicant', function ($query) use ($university) {
+            ($university)?$query->where('hr_university_id', $university):'';
+        });
         return $query;
     }
 
@@ -427,5 +439,10 @@ class Application extends Model
     public function isRejected()
     {
         return $this->status == config('constants.hr.status.rejected.label');
+    }
+
+    public function universities()
+    {
+        return University::all();
     }
 }

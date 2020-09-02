@@ -6,18 +6,26 @@
     @include('hr.menu')
     <br>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-5">
             <h1>Applications</h1>
         </div>
-        <form class="offset-md-2 col-md-4 d-flex justify-content-end align-items-center" method="GET" action="/{{ Request::path() }}">
+        <form class="offset-md-2 col-md-5 d-flex justify-content-end align-items-center" method="GET" action="/{{ Request::path() }}">
+            <div class="mr-2">
+                        <select name="hr_university_id" class="custom-select mr-sm-2" id="universitySelectFilter">
+                            <option value="{{request()->has('hr_university_id')?request()->get('hr_university_id'):''}}" selected>Search byUniversity</option>
+                            @foreach($universities as $university)
+                            <option value="{{$university->id}}">{{$university->name}}</option>
+                            @endforeach
+                        </select>
+            </div>
             <input type="hidden" name="status" class="form-control" id="search" value=
                    "{{ config('constants.hr.status.' . request("status") . '.label') }}" >
 
-        <input type="text" name="search" class="form-control" id="search" placeholder="Search Applicants" value=@if(request()->has('search')){{request()->get('search')}}
+            <input type="text" name="search" class="form-control" id="search" placeholder="Search Applicants" value=@if(request()->has('search')){{request()->get('search')}}
                    @endif>
 
                <button class="btn btn-info ml-2">Search</button>
-            </form>
+        </form>
     </div>
     @if(request()->has('search'))
     <div class="row mt-3 mb-2">
@@ -32,7 +40,7 @@
     <div class="d-flex align-items-center justify-content-between">
         <ul class="nav nav-pills mb-2">
             <li class="nav-item">
-                <a class="nav-item nav-link d-flex align-items-center {{ $status ? 'text-info' : 'active bg-info text-white' }}" href=/{{ Request::path() }}{{request()->has('search')? "?search=".request('search'):"" }}><i class="fa fa-clipboard"></i>&nbsp;
+                <a class="nav-item nav-link d-flex align-items-center {{ $status ? 'text-info' : 'active bg-info text-white' }}" href=/{{ Request::path() }}{{request()->has('search')? "?search=".request('search'):"" }}{{request()->has('hr_university_id')? "&hr_university_id=".request('hr_university_id'):"" }}><i class="fa fa-clipboard"></i>&nbsp;
                 Open
                 @if(request()->has('search'))
                     <span class="ml-1 d-inline-block bg-info text-white px-2 py-0 {{ $status ? 'text-white' : 'active bg-white text-info' }}" style="border-radius: 20px;font-size: 12px;font-weight: 700;">
@@ -43,7 +51,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-item nav-link d-flex align-items-center {{ $status === config('constants.hr.status.on-hold.label') ? 'active bg-info text-white' : 'text-info' }}" href=/{{Request::path() .'?status='. config('constants.hr.status.on-hold.label')}}{{request()->has('search')? "&search=".request('search'):"" }}><i class="fa fa-file-text-o"></i>&nbsp;
+                <a class="nav-item nav-link d-flex align-items-center {{ $status === config('constants.hr.status.on-hold.label') ? 'active bg-info text-white' : 'text-info' }}" href=/{{Request::path() .'?status='. config('constants.hr.status.on-hold.label')}}{{request()->has('search')? "&search=".request('search'):"" }}{{request()->has('hr_university_id')? "&hr_university_id=".request('hr_university_id'):"" }}><i class="fa fa-file-text-o"></i>&nbsp;
                     {{ config('constants.hr.status.on-hold.title') }}
                 @if(request()->has('search'))
                     <span class="ml-1 d-inline-block bg-info text-white px-2 py-0 {{ $status === config('constants.hr.status.on-hold.label') ? 'active bg-white text-info' : 'text-white' }}" style="border-radius: 20px;font-size: 12px;font-weight: 700;">
@@ -53,7 +61,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-item nav-link d-flex align-items-center {{ $status === config('constants.hr.status.no-show.label') ? 'active bg-info text-white' : 'text-info' }}" href= /{{ Request::path() }}?status={{ config('constants.hr.status.no-show.label') }}{{request()->has('search')? "&search=".request('search'):"" }}><i class="fa fa-warning"></i>&nbsp;{{ config('constants.hr.status.no-show.title') }} @if(request()->has('search'))
+                <a class="nav-item nav-link d-flex align-items-center {{ $status === config('constants.hr.status.no-show.label') ? 'active bg-info text-white' : 'text-info' }}" href= /{{ Request::path() }}?status={{ config('constants.hr.status.no-show.label') }}{{request()->has('search')? "&search=".request('search'):"" }}{{request()->has('hr_university_id')? "&hr_university_id=".request('hr_university_id'):"" }}><i class="fa fa-warning"></i>&nbsp;{{ config('constants.hr.status.no-show.title') }} @if(request()->has('search'))
                     <span class="ml-1 d-inline-block bg-info text-white px-2 py-0 {{ $status === config('constants.hr.status.no-show.label') ? 'active bg-white text-info' : 'text-white' }}" style="border-radius: 20px;font-size: 12px;font-weight: 700;">
                         {{$noShowApplicationsCount}}
                     </span>
@@ -61,7 +69,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-item nav-link d-flex align-items-center {{ $status === config('constants.hr.status.rejected.label') ? 'active bg-info text-white' : 'text-info' }}" href= /{{ Request::path() }}?status={{ config('constants.hr.status.rejected.label') }}{{request()->has('search')? "&search=".request('search'):"" }}><i class="fa fa-times-circle"></i>&nbsp;
+                <a class="nav-item nav-link d-flex align-items-center {{ $status === config('constants.hr.status.rejected.label') ? 'active bg-info text-white' : 'text-info' }}" href= /{{ Request::path() }}?status={{ config('constants.hr.status.rejected.label') }}{{request()->has('search')? "&search=".request('search'):"" }}{{request()->has('hr_university_id')? "&hr_university_id=".request('hr_university_id'):"" }}><i class="fa fa-times-circle"></i>&nbsp;
                     Closed
                 @if(request()->has('search'))
                     <span class="ml-1 d-inline-block bg-info text-white px-2 py-0 {{ $status === config('constants.hr.status.rejected.label') ? 'active bg-white text-info' : 'text-white' }}" style="border-radius: 20px;font-size: 12px;font-weight: 700;">
@@ -71,7 +79,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-item nav-link d-flex align-items-center {{ $status === config('constants.hr.status.sent-for-approval.label') ? 'active bg-info text-white' : 'text-info' }}" href= /{{ Request::path() .'?status='. config('constants.hr.status.sent-for-approval.label')}}{{request()->has('search')? "&search=".request('search'):"" }}
+                <a class="nav-item nav-link d-flex align-items-center {{ $status === config('constants.hr.status.sent-for-approval.label') ? 'active bg-info text-white' : 'text-info' }}" href= /{{ Request::path() .'?status='. config('constants.hr.status.sent-for-approval.label')}}{{request()->has('search')? "&search=".request('search'):"" }}{{request()->has('hr_university_id')? "&hr_university_id=".request('hr_university_id'):"" }}
                ><i class="fa fa-clock-o"></i>&nbsp;{{ config('constants.hr.status.sent-for-approval.title') }}
                 @if(request()->has('search'))
                     <span class="ml-1 d-inline-block bg-info text-white px-2 py-0 {{ $status === config('constants.hr.status.sent-for-approval.label') ? 'active bg-white text-info' : 'text-white' }}" style="border-radius: 20px;font-size: 12px;font-weight: 700;">
@@ -81,7 +89,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-item nav-link d-flex align-items-center {{ $status === config('constants.hr.status.approved.label') ? 'active bg-info text-white' : 'text-info' }}" href= /{{ Request::path() }}?status={{ config('constants.hr.status.approved.label') }}{{request()->has('search')? "&search=".request('search'):"" }}><i class="fa fa-check-square"></i>&nbsp;
+                <a class="nav-item nav-link d-flex align-items-center {{ $status === config('constants.hr.status.approved.label') ? 'active bg-info text-white' : 'text-info' }}" href= /{{ Request::path() }}?status={{ config('constants.hr.status.approved.label') }}{{request()->has('search')? "&search=".request('search'):"" }}{{request()->has('hr_university_id')? "&hr_university_id=".request('hr_university_id'):"" }}><i class="fa fa-check-square"></i>&nbsp;
                     Approved
                 @if(request()->has('search'))
                     <span class="ml-1 d-inline-block bg-info text-white px-2 py-0 {{ $status === config('constants.hr.status.approved.label') ? 'active bg-white text-info' : 'text-white' }}" style="border-radius: 20px;font-size: 12px;font-weight: 700;">
@@ -91,7 +99,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-item nav-link d-flex align-items-center {{ $status === config('constants.hr.status.onboarded.label') ? 'active bg-info text-white' : 'text-info' }}" href= /{{ Request::path() }}?status={{ config('constants.hr.status.onboarded.label') }}{{request()->has('search')? "&search=".request('search'):"" }}><i class="fa fa-certificate"></i>&nbsp;
+                <a class="nav-item nav-link d-flex align-items-center {{ $status === config('constants.hr.status.onboarded.label') ? 'active bg-info text-white' : 'text-info' }}" href= /{{ Request::path() }}?status={{ config('constants.hr.status.onboarded.label') }}{{request()->has('search')? "&search=".request('search'):"" }}{{request()->has('hr_university_id')? "&hr_university_id=".request('hr_university_id'):"" }}><i class="fa fa-certificate"></i>&nbsp;
                     Onboard
                 @if(request()->has('search'))
                     <span class="ml-1 d-inline-block bg-info text-white px-2 py-0 {{ $status === config('constants.hr.status.onbaorded.label') ? 'active bg-white text-info' : 'text-white' }}" style="border-radius: 20px;font-size: 12px;font-weight: 700;">
@@ -112,6 +120,7 @@
         <tr>
             <th>Name</th>
             <th>Email</th>
+            <th>University</th>
             <th>Applied for</th>
             <th>Applied on</th>
             <th>Status</th>
@@ -122,6 +131,7 @@
                 <a href="/{{ Request::path() }}/{{ $application->id }}/edit">{{ $application->applicant->name }}</a>
             </td>
             <td>{{ $application->applicant->email }}</td>
+            <td><a href="{{ route('universities.edit',$application->applicant->university) }}">{{ $application->applicant->university->name}}</a></td>
             <td>{{ $application->job->title }}</td>
             <td>{{ $application->created_at->format(config('constants.display_date_format')) }}</td>
             <td>

@@ -5,6 +5,7 @@ namespace App\Models\HR;
 use App\Services\GSuiteUserService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\HR\University;
 
 class Applicant extends Model
 {
@@ -113,5 +114,10 @@ class Applicant extends Model
             'firstName' => $firstName,
             'lastName' => $lastName,
         ];
+    }
+
+    public function university()
+    {
+        return $this->belongsTo(University::class, 'hr_university_id');
     }
 }
