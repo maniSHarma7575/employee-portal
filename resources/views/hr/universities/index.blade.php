@@ -12,7 +12,7 @@
         </div>
         <div class="col-md-4">
             <form class="d-flex justify-content-end align-items-center"  method="GET" action="/{{ Request::path() }}">
-                <input type="hidden" name="status" class="form-control" id="search" value="">
+                <input type="hidden" name="status" class="form-control" id="status" value="">
                 <input type="text" name="search" class="form-control" id="search" placeholder="Search university">
                 <button class="btn btn-info ml-2">Search</button>
             </form>
@@ -29,7 +29,7 @@
     </div>
     @endif
     <br>
-    <div class="table-responsive">
+    <div class="table-responsive" id="star_rating">
         <table class="table table-striped table-bordered" id="universities_table">
             <tr>
                 <th>University</th>
@@ -41,6 +41,11 @@
             <td>
             <h5 class="font-weight-bold">{{$university->name}}</h5>
             {{$university->address}}
+            @isset($university->rating)
+                <div><star-rating-show :edit="true" :value="{{$university->rating}}" :university="{{$university}}"/></div>
+            @else
+                <div><span class="badge badge-info">Not rated yet</span></div>
+            @endisset
             </td>
             <td>
             <table class="table table-borderless table-nostriped" id="contacts_table{{$university->id}}">

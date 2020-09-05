@@ -29,9 +29,17 @@
                         <input type="text" class="form-control" name="address" id="address" placeholder="Address" required="required" value="{{$university->address }}">
                     </div>
                 </div>
+                <div class="form-row">
+                    <div class="form-group col">
+                    <label for="rating" >Rating</label>
+                    <div>
+                        <star-rating-show :edit="false" :value="{{$university->rating??'0.0'}}" :university="{{$university}}" />
+                    </div>
+                    </div> 
+                </div>
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button  type="submit" class="btn btn-primary">Update</button>
             </div>
         </form>
     </div>

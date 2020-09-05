@@ -55,7 +55,6 @@ class UniversityController extends Controller
         $updated = $university->update([
             'name'=>$validatedData['name'],
             'address'=>$validatedData['address'] ?? null,
-            'rating'=>$validatedData['rating'] ?? null
         ]);
         return redirect(route('universities.edit', $university))->with('status', 'University updated successfully!');
     }
@@ -71,5 +70,13 @@ class UniversityController extends Controller
     {
         $data=University::all('name', 'id')->toArray();
         return response()->json($data);
+    }
+
+    public function updateRating(Request $request, University $university)
+    {
+        $university->update([
+            'rating'=>$request->get('rating')
+        ]);
+        return response()->json($request);
     }
 }

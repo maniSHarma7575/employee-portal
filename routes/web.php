@@ -116,7 +116,7 @@ Route::middleware('auth')->group(function () {
                 'create'=>'universities.create',
                 'destroy'=>'universities.destroy'
         ]);
-
+        Route::put('universities/{university}/rating', 'Universities\UniversityController@updateRating');
         Route::resource('universities/contacts', 'Universities\UniversityContactController')
             ->only(['update','destroy'])
             ->names([

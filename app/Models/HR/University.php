@@ -45,6 +45,7 @@ class University extends Model
     }
     public static function refactorArray($array)
     {
+        $applications=[];
         foreach ($array as $value) {
             $applications['labels'][]=$value->name;
             $applications['data'][]=$value->total;

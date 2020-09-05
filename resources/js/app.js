@@ -9,6 +9,7 @@ require('./bootstrap');
 
 import 'jquery-ui/ui/widgets/datepicker.js';
 import ImageCompressor from 'image-compressor.js';
+import StarRating from 'vue-star-rating';
 var weeklyDoseClipboard = new ClipboardJS('#copy_weeklydose_service_url');
 
 window.Vue = require('vue');
@@ -39,6 +40,8 @@ Vue.component('user-dashboard-wishlist-books', require('./components/Dashboard/U
 Vue.component('user-dashboard-projects', require('./components/Dashboard/UserDashboardProjects.vue').default);
 Vue.component('user-dashboard-library', require('./components/Dashboard/UserDahboardLibrary.vue').default);
 Vue.component('hr-universities-reports', require('./components/HR/UniversityReportComponent.vue').default);
+Vue.component('star-rating-show',require('./components/HR/UniversityRatingComponent.vue').default);
+Vue.component('star-rating',StarRating);
 if (document.getElementById('vueContainer')) {
 new Vue({
     el: '#vueContainer',
@@ -72,6 +75,12 @@ if (document.getElementById('university_reports')) {
         el: '#university_reports',
     });
 }
+if (document.getElementById('star_rating')) {
+    const StarRatingComponent = new Vue({
+        el: '#star_rating'
+    });
+}
+
 if (document.getElementById('page_hr_applicant_edit')) {
     const applicantEdit = new Vue({
         el: '#page_hr_applicant_edit',
